@@ -17,12 +17,30 @@
     <script src="js/pusher.min.js"></script>
     <script src="js/PusherChatWidget.js"></script>    
     <script>
-    
+     /* 
     var pusher = new Pusher("c78f3766dab19de445a2")
 var chatWidget = new PusherChatWidget(pusher, {
   appendTo: "#pusher_chat_widget",
   chatEndPoint: "/chat"
-});
+});     */
+
+
+// Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('c78f3766dab19de445a2', {
+      cluster: 'ap2',
+      encrypted: true,
+      appendTo: "#pusher_chat_widget",
+      chatEndPoint: "/chat"
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      alert(data.message);
+    });
+
+
     </script>
   </head>
   <body>
